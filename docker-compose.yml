@@ -1,33 +1,40 @@
 version: '3'
 
 services:
-    db:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        volumes:
-          - ./banco/mysql:/var/lib/mysql
-        environment:
-          - MYSQL_ROOT_PASSWORD=root
-          - MYSQL_PASSWORD=root
-          - MYSQL_USER=root
-          - MYSQL_DATABASE=golocacao
+  db:
+    image: mysql:8.0
+    container_name: mysql_cont
+    ports:
+      - 3306:3306
+    restart: always
+    volumes:
+      - ./banco/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_USER=docker
+      - MYSQL_DATABASE=golocacao
+    networks:
+      netlocacao:
+        ipv4_address: "172.28.1.10"
 
-    backend:
-        image: golang
-        volumes: 
-            - ./:/backend
-        ports: 
-            - 3000:3000
-        restart: on-failure
-        depends_on:
-          - db
-        links:
-          - db
-        environment:
-          - DB_HOST=db
-          - DB_PORT=3306
-          - DB_NAME=golocacao
-          - DB_USER=root
-          - DB_PASS=root
-        command: bash -c "cd /backend && go run main.go"
+  backend:
+    build: .
+    container_name: backend
+    volumes: 
+      - ./:/go/src
+    ports: 
+      - 3000:3000
+    depends_on:
+      - db
+    command: bash -c "cd /go/src && GOOS=linux go build main.go && go run main.go"
+    networks:
+      netlocacao:
+        ipv4_address: "172.28.1.3"
+  
+networks:
+  netlocacao:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.28.1.0/16"

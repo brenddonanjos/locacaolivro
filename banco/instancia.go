@@ -8,15 +8,25 @@ import (
 
 const (
 	DB_NAME = "golocacao"
-	DB_USER = "root"
+	DB_USER = "docker"
 	DB_PASS = "root"
+	DB_ADDR = "172.28.1.10:3306"
 )
 
 func Start() *sql.DB {
 	checkDb() //verifica se o banco existe
 
+	// Registra configurações de conexão
+	// cfg := mysql.Config{
+	// 	User:   DB_USER,
+	// 	Passwd: DB_PASS,
+	// 	Net:    "tcp",
+	// 	Addr:   "172.28.1.10:3306",
+	// 	DBName: DB_NAME,
+	// }
+
 	//instancia o banco específico
-	db, err := sql.Open("mysql", DB_USER+":"+DB_PASS+"@/"+DB_NAME)
+	db, err := sql.Open("mysql", DB_USER+":"+DB_PASS+"@tcp(mysql_container:3306)/"+DB_NAME)
 	if err != nil {
 		panic(err)
 	}
