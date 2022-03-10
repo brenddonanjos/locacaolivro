@@ -13,6 +13,7 @@
 <p>Entre na pasta do projeto e execute o comando:</p>
 
 #Markdown
+
 ```
 docker-compose up
 ```
