@@ -11,6 +11,8 @@
 <h3>Instalação</h3>
 <p>Para instalação é necessário que o docker e docker-compose estejam devidamente instalados na sua máquina</p>
 <p>Entre na pasta do projeto e execute o comando:</p>
+
+#Markdown
 ```
 docker-compose up
 ```
