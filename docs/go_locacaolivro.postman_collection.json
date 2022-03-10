@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "b0f7a31e-aea3-4045-8e77-b5d0980cf874",
+		"name": "Go estudos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Locação Livros",
+			"item": [
+				{
+					"name": "Clientes",
+					"item": [
+						{
+							"name": "Cliente (Todos)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cliente",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cliente"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cliente (Por ID)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cliente/2",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cliente",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cliente (Cadastrar)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nome\" : \"Brenddon Anjos\",\n    \"email\" : \"brenddon.anjos@gmail.com\",\n    \"cpf\" : \"05717455588\",\n    \"telefone\" : \"77991445877\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cliente/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cliente",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cliente (Editar)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 3,\n    \"nome\": \"Antônio Neris\",\n    \"email\": \"antonio.neris@gmail.com\",\n    \"cpf\" : \"32000014144\",\n    \"telefone\" : \"77988554241\",\n    \"ativo\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cliente/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cliente",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Livros",
+					"item": [
+						{
+							"name": "Livro (Cadastrar)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"titulo\": \"1984\",\n    \"autor\": \"George Orwell\",\n    \"ano\": 2021,\n    \"edicao\": \"1ª Edição\",\n    \"Editora\": \"Lafonte\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/livro/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"livro",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Livro (Todos)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/livro/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"livro",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Livro (Por ID)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/livro/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"livro",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Livro (Editar)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 2,\n    \"titulo\": \"1984\",\n    \"autor\": \"George Orwell\",\n    \"ano\": 2021,\n    \"edicao\": \"1ª Edição\",\n    \"Editora\": \"Lafonte\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/livro/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"livro",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Livro (Excluir)",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/livro/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"livro",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Locação",
+					"item": [
+						{
+							"name": "Locação (Cadastrar)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"Iniciada\",\n    \"data_locacao\": \"2021-02-09 18:50:00\",\n    \"prazo_dias\": 90,\n    \"cliente_id\": 2,\n    \"livro_id\": 3 \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/locacao/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"locacao",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Locação (Listar)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/locacao/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"locacao",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Locação (Por ID)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/locacao/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"locacao",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Locação (Editar)",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 2,\n    \"status\": \"Iniciada\",\n    \"prazo_dias\": 50\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/locacao/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"locacao",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
