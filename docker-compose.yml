@@ -17,10 +17,11 @@ services:
       - ./banco/mysql:/var/lib/mysql
       - ./banco/init:/docker-entrypoint-initdb.d
     networks:
-      - mynet
+      main:
+        ipv4_address: "172.28.1.10"
 
   backend:
-    image: golang:1.17
+    build: .
     container_name: backend
     volumes:
       - ./:/go/src
@@ -30,10 +31,10 @@ services:
       - mysql
     command: bash -c "cd /go/src && GOOS=linux go build main.go && go run main.go"
     networks:
-      - mynet
+      - main
 
 networks:
-  mynet:
+  main:
     driver: bridge
     ipam:
       driver: default
