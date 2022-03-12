@@ -9,87 +9,78 @@ import (
 const (
 	DB_NAME = "golocacao"
 	DB_USER = "docker"
-	DB_PASS = "root"
-	DB_ADDR = "172.28.1.10:3306"
+	DB_PASS = "docker"
 )
 
 func Start() *sql.DB {
-	checkDb() //verifica se o banco existe
-
-	// Registra configurações de conexão
-	// cfg := mysql.Config{
-	// 	User:   DB_USER,
-	// 	Passwd: DB_PASS,
-	// 	Net:    "tcp",
-	// 	Addr:   "172.28.1.10:3306",
-	// 	DBName: DB_NAME,
-	// }
+	//checkDb() //verifica se o banco existe
 
 	//instancia o banco específico
-	db, err := sql.Open("mysql", DB_USER+":"+DB_PASS+"@tcp(mysql_container:3306)/"+DB_NAME)
+	db, err := sql.Open("mysql", DB_USER+":"+DB_PASS+"@tcp(mysql:3306)/"+DB_NAME)
 	if err != nil {
 		panic(err)
 	}
 
 	//monta a estrutura do banco (simulando uma migration)
+	//exec(db, "CREATE DATABASE IF NOT EXISTS "+DB_NAME)
 	exec(db, "use "+DB_NAME)
 
-	exec(db, `create table if not exists clientes (
-		id integer auto_increment,
-		nome varchar(80),
-		email varchar(80),
-		telefone varchar(80),
-		cpf varchar(80),
-		ativo TINYINT(1),
-		endereco_id integer,
-		PRIMARY KEY (id)
-	) ENGINE = innodb`)
+	// exec(db, `create table if not exists clientes (
+	// 	id integer auto_increment,
+	// 	nome varchar(80),
+	// 	email varchar(80),
+	// 	telefone varchar(80),
+	// 	cpf varchar(80),
+	// 	ativo TINYINT(1),
+	// 	endereco_id integer,
+	// 	PRIMARY KEY (id)
+	// ) ENGINE = innodb`)
 
-	exec(db, `create table if not exists enderecos (
-		id integer auto_increment,
-		cep varchar(80),
-		logradouro varchar(190),
-		numero varchar(80),
-		bairro varchar(80),
-		cidade varchar(190),
-		uf varchar(4),
-		complemento varchar(255),
-		PRIMARY KEY (id)
-	) ENGINE = innodb`)
+	// exec(db, `create table if not exists enderecos (
+	// 	id integer auto_increment,
+	// 	cep varchar(80),
+	// 	logradouro varchar(190),
+	// 	numero varchar(80),
+	// 	bairro varchar(80),
+	// 	cidade varchar(190),
+	// 	uf varchar(4),
+	// 	complemento varchar(255),
+	// 	PRIMARY KEY (id)
+	// ) ENGINE = innodb`)
 
-	exec(db, `create table if not exists livros (
-		id integer auto_increment,
-		titulo varchar(255),
-		autor varchar(190),
-		ano integer,
-		edicao varchar(80),
-		editora varchar(190),
-		PRIMARY KEY (id)
-	) ENGINE = innodb`)
+	// exec(db, `create table if not exists livros (
+	// 	id integer auto_increment,
+	// 	titulo varchar(255),
+	// 	autor varchar(190),
+	// 	ano integer,
+	// 	edicao varchar(80),
+	// 	editora varchar(190),
+	// 	PRIMARY KEY (id)
+	// ) ENGINE = innodb`)
 
-	exec(db, `create table if not exists locacoes (
-		id integer auto_increment,
-		status varchar(80),
-		data_locacao datetime,
-		prazo_dias integer,
-		cliente_id integer,
-		livro_id integer,
-		PRIMARY KEY (id),
-		CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),
-		CONSTRAINT fk_livro FOREIGN KEY (livro_id) REFERENCES livros (id)
-	) ENGINE = innodb`)
+	// exec(db, `create table if not exists locacoes (
+	// 	id integer auto_increment,
+	// 	status varchar(80),
+	// 	data_locacao datetime,
+	// 	prazo_dias integer,
+	// 	cliente_id integer,
+	// 	livro_id integer,
+	// 	PRIMARY KEY (id),
+	// 	CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES clientes (id),
+	// 	CONSTRAINT fk_livro FOREIGN KEY (livro_id) REFERENCES livros (id)
+	// ) ENGINE = innodb`)
 
 	return db
 }
 
-func checkDb() {
-	db, err := sql.Open("mysql", DB_USER+":"+DB_PASS+"@/")
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-	exec(db, "CREATE DATABASE IF NOT EXISTS "+DB_NAME)
-}
+// func checkDb() {
+// 	db, err := sql.Open("mysql", DB_USER+":"+DB_PASS+"@tcp(db:3306)/")
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	defer db.Close()
+// 	exec(db, "CREATE DATABASE IF NOT EXISTS "+DB_NAME)
+// }
 
 func exec(db *sql.DB, sql string) sql.Result {
 	result, err := db.Exec(sql)
